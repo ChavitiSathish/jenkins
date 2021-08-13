@@ -1,8 +1,7 @@
 pipeline{
     agent {
-        node {label  'workstation'}
+        node {label  'Workstation'}
     }
-
     stages{
         stage('One'){
             steps{
