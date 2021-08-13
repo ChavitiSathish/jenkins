@@ -1,4 +1,4 @@
-pipeline{
+/*pipeline{
     //agent {
         //node {label  'Workstation'}
         //label 'JAVA'
@@ -22,6 +22,22 @@ pipeline{
              steps{
                sh 'echo Hello'
              }
+        }
+    }
+}*/
+
+pipeline{
+    agent any
+
+    environment {
+        DEMO_URL = "google.com"
+    }
+
+    stages{
+        stage('ONE'){
+            steps{
+            sh 'echo ${DEMO_URL}'
+            }
         }
     }
 }
