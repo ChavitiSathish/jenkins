@@ -36,7 +36,7 @@ for (i in 0..count) {
         'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
           'userRemoteConfigs' {
             'hudson.plugins.git.UserRemoteConfig' {
-              'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps57/_git/'+j)
+              'url'('https://chavitisathish@dev.azure.com/chavitisathish/devops-project/_git/'+j)
               'refspec'('\'+refs/tags/*\':\'refs/remotes/origin/tags/*\'')
             }
           }
