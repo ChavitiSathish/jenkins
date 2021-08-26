@@ -1,18 +1,17 @@
 def call() {
-    pipeline {
+  pipeline {
     agent any
 
     stages {
-
-      stage('Find Bugs') {
+      stage('Download NodeJS Dependencies') {
         steps {
-          echo "Test Cases"
+          echo "Download NodeJS Dependencies"
         }
       }
 
-      stage('Download NodeJS Dependencies') {
+      stage('Find Bugs') {
         steps {
-          echo "Download Dependencies"
+          echo "Find Bugs"
         }
       }
 
@@ -21,11 +20,12 @@ def call() {
           echo "Test Cases"
         }
       }
+
     }
-      post {
-        always {
-          cleanWs()
-        }
+    post {
+      always {
+        cleanWs()
       }
+    }
   }
 }
