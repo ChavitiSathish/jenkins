@@ -5,7 +5,7 @@ def call() {
     stages {
       stage('Download NodeJS Dependencies') {
         steps {
-          sh "sudo npm install -g"
+          sh "npm install -g"
         }
       }
 
