@@ -4,13 +4,13 @@ folder('CI-Pipelines') {
 }
 
 
-  pipelineJob("CI-Pipelines/catalogue") {
+  pipelineJob("CI-Pipelines/cart") {
     configure { flowdefinition ->
       flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
         'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
           'userRemoteConfigs' {
             'hudson.plugins.git.UserRemoteConfig' {
-              'url'('https://chavitisathish@dev.azure.com/chavitisathish/devops-project/_git/catalogue')
+              'url'('https://chavitisathish@dev.azure.com/chavitisathish/devops-project/_git/cart')
               'refspec'('\'+refs/tags/*\':\'refs/remotes/origin/tags/*\'')
             }
           }
