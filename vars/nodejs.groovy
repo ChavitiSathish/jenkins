@@ -3,7 +3,7 @@ def call(){
     agent any
       stages{
 
-        stage('Download NodeJs Dependencies'){
+        stage('Download NodeNJs Dependencies'){
           steps{
             echo "Download Dependencies"
           }
