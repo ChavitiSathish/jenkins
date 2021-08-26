@@ -1,26 +1,55 @@
-def call(){
+def call(String COMPONENT) {
     pipeline {
         agent any
 
-        stages{
+        environment {
+            SQ_TOKEN  = credentials("SQ_TOKEN")
+            SQ_LOGIN  = credentials("SQ_LOGIN")
+            NEXUS     = credentials("NEXUS")
+        }
 
-            stage('Compile Package'){
-                steps{
-                    echo "Compile Package"
+        stages {
+
+            stage('Compile Package') {
+                steps {
+                    sh "mvn clean package"
                 }
             }
 
-            stage('Find Bugs'){
-                steps{
-                    echo "Find Bugs"
+            stage('Find Bugs') {
+                steps {
+                    script {
+                        print "ok"
+                        //bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
+                    }
                 }
             }
 
-            stage('Test Cases'){
-                steps{
+            stage('Test Cases') {
+                steps {
                     echo "Test Cases"
                 }
             }
+
+            stage('Publish Artifacts') {
+                when { expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) } }
+                steps {
+                    sh """
+            gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
+            cp target/*.jar ${COMPONENT}.jar
+            zip -r ${COMPONENT}-\${gitTag}.zip ${COMPONENT}.jar
+            curl -v -u ${NEXUS} --upload-file ${COMPONENT}-\${gitTag}.zip http://172.31.13.136:8081/repository/${COMPONENT}/${COMPONENT}-\${gitTag}.zip
+          """
+                }
+            }
+
         }
+
+        post {
+            always {
+                cleanWs()
+            }
+        }
+
     }
 }
