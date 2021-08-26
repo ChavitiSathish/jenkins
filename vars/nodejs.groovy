@@ -1,56 +1,32 @@
-def call(String COMPONENT) {
+call() {
   pipeline {
     agent any
-
-    environment {
-      SQ_TOKEN = credentials("SQ_TOKEN")
-      SQ_LOGIN = credentials("SQ_LOGIN")
-      NEXUS     = credentials("NEXUS")
-    }
 
     stages {
 
       stage('Find Bugs') {
         steps {
-          script {
-            print "ok"
-            //bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
-          }
+          echo "Test Cases"
         }
       }
 
       stage('Download NodeJS Dependencies') {
         steps {
-          sh "npm install"
+          echo "Download Dependencies"
         }
       }
 
-//      stage('Test Cases') {
-//        steps {
-//          echo "Test Cases"
-//        }
-//      }
-//
-
-      stage('Publish Artifacts') {
-        when { expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) } }
+      stage('Test Cases') {
         steps {
-          sh """
-            gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
-            zip -r ${COMPONENT}-\${gitTag}.zip node_modules server.js 
-            curl -v -u ${NEXUS} --upload-file ${COMPONENT}-\${gitTag}.zip http://172.31.13.136:8081/repository/${COMPONENT}/${COMPONENT}-\${gitTag}.zip
-          """
+          echo "Test Cases"
         }
       }
 
-
-    }
-
-    post {
-      always {
-        cleanWs()
+      post {
+        always {
+          cleanWs()
+        }
       }
     }
-
   }
 }
