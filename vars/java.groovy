@@ -5,7 +5,7 @@ def call() {
         stages {
             stage('Compile Package') {
                 steps {
-                    echo "Compile Package"
+                    sh "mvn clean package"
                 }
             }
 
