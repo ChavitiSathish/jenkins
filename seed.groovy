@@ -28,4 +28,3 @@ folder('CI-Pipelines') {
       }
     }
   }
-}
