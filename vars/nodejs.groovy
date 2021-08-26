@@ -21,12 +21,11 @@ def call() {
           echo "Test Cases"
         }
       }
-
+    }
       post {
         always {
           cleanWs()
         }
       }
-    }
   }
 }
