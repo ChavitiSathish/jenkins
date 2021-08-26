@@ -1,5 +1,5 @@
-call() {
-  pipeline {
+def call() {
+    pipeline {
     agent any
 
     stages {
