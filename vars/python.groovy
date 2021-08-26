@@ -1,21 +1,11 @@
-def call(String COMPONENT) {
+def call() {
     pipeline {
         agent any
 
-        environment {
-            SQ_TOKEN  = credentials("SQ_TOKEN")
-            SQ_LOGIN  = credentials("SQ_LOGIN")
-            NEXUS     = credentials("NEXUS")
-        }
-
         stages {
-
             stage('Find Bugs') {
                 steps {
-                    script {
-                        print "ok"
-                        //bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
-                    }
+                    echo "Find Bugs"
                 }
             }
 
@@ -25,24 +15,11 @@ def call(String COMPONENT) {
                 }
             }
 
-            stage('Publish Artifacts') {
-                when { expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) } }
-                steps {
-                    sh """
-            gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
-            zip -r ${COMPONENT}-\${gitTag}.zip *.ini *.py requirements.txt
-            curl -v -u ${NEXUS} --upload-file ${COMPONENT}-\${gitTag}.zip http://172.31.13.136:8081/repository/${COMPONENT}/${COMPONENT}-\${gitTag}.zip
-          """
-                }
-            }
-
         }
-
         post {
             always {
                 cleanWs()
             }
         }
-
     }
 }
