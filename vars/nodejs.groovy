@@ -11,7 +11,9 @@ def call() {
 
       stage('Find Bugs') {
         steps {
-          echo "Find Bugs"
+          script {
+            bugs.check_bugs()
+          }
         }
       }
 
