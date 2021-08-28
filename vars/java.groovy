@@ -27,7 +27,13 @@ def call(String COMPONENT) {
           }
         }
 
+        stage('Publish Artifacts') {
+          steps {
+            echo "Publish Artifacts"
+          }
+        }
       }
+
       post {
         always {
           cleanWs()

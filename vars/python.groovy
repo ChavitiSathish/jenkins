@@ -1,33 +1,39 @@
 def call(String COMPONENT) {
     pipeline {
-        agent any
+      agent any
 
-        environment {
-            SQ_TOKEN = credentials("SQ_TOKEN")
-            SQ_LOGIN = credentials("SQ_LOGIN")
+      environment {
+         SQ_TOKEN = credentials("SQ_TOKEN")
+         SQ_LOGIN = credentials("SQ_LOGIN")
+      }
+
+      stages {
+        stage('Find Bugs') {
+          steps {
+            script {
+              bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
+            }
+          }
         }
 
-        stages {
-            stage('Find Bugs') {
-                steps {
-                    script {
-                        bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
-                    }
-                }
-            }
-
-
-            stage('Test Cases') {
-                steps {
-                    echo "Test Cases"
-                }
-            }
-
+        stage('Test Cases') {
+          steps {
+            echo "Test Cases"
+          }
         }
-        post {
-            always {
-                cleanWs()
-            }
+
+        stage('Publish Artifacts') {
+          steps {
+            echo "Publish Artifacts"
+          }
         }
+
+      }
+
+      post {
+        always {
+          cleanWs()
+        }
+      }
     }
 }

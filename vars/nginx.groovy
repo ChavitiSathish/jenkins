@@ -21,13 +21,18 @@ def call(String COMPONENT) {
              echo "Test Cases"
            }
          }
+
+         stage('Publish Artifacts') {
+           steps {
+             echo "Publish Artifacts"
+           }
+         }
        }
 
-
-        post {
-          always {
-            cleanWs()
-          }
-        }
+       post {
+         always {
+           cleanWs()
+         }
+       }
     }
 }
