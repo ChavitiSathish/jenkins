@@ -23,6 +23,7 @@ def call(String COMPONENT) {
          }
 
          stage('Publish Artifacts') {
+           when { buildgingTag() }
            steps {
              echo "Publish Artifacts"
            }
