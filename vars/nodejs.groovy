@@ -4,15 +4,15 @@ def call(String COMPONENT) {
 
     environment {
       SQ_TOKEN = credentials("SQ_TOKEN")
-      SQ_LOGIN = credentials("SQ_LOGIN")
+      //SQ_LOGIN = credentials("SQ_LOGIN")
     }
 
     stages {
       stage('Find Bugs') {
         steps {
           script {
-            bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
-            //bugs.check_bugs(COMPONENT, SQ_TOKEN)
+            //bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
+            bugs.check_bugs(COMPONENT, SQ_TOKEN)
           }
         }
       }
