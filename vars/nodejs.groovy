@@ -1,4 +1,4 @@
-def call() {
+def call(String COMPONENT) {
   pipeline {
     agent any
 
@@ -6,7 +6,7 @@ def call() {
       stage('Find Bugs') {
         steps {
           script {
-            bugs.check_bugs()
+            bugs.check_bugs(COMPONENT)
           }
         }
       }
