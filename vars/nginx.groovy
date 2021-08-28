@@ -31,7 +31,7 @@ def call(String COMPONENT) {
             cd static
             zip -r ../${COMPONENT}-\${gitTag}.zip *
             cd ..
-            curl -v -u ${NEXUS} --upload-file ${COMPONENT}-\${gitTag}.zip http://172.31.15.198:8081/repository/${COMPONENT}/${COMPONENT}-\${gitTag}.zip
+            curl -v -u ${NEXUS} --upload-file ${COMPONENT}-\\${gitTag}.zip http://172.31.15.198:8081/repository/${COMPONENT}/${COMPONENT}-\\${gitTag}.zip 
           """
            }
          }
