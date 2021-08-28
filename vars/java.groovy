@@ -5,6 +5,7 @@ def call(String COMPONENT) {
       environment {
         SQ_TOKEN = credentials("SQ_TOKEN")
         SQ_LOGIN = credentials("SQ_LOGIN")
+        NEXUS    = credentials("NEXUS")
       }
 
       stages {
