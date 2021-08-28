@@ -36,6 +36,7 @@ def call(String COMPONENT) {
             gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
             cp target/*.jar ${COMPONENT}.jar
             zip -r ${COMPONENT}-\${gitTag}.zip ${COMPONENT}.jar
+            curl -v -u ${NEXUS} --upload-file ${COMPONENT}-\${gitTag}.zip http://172.31.15.198:8081/repository/${COMPONENT}/${COMPONENT}-\${gitTag}.zip
           """
           }
         }

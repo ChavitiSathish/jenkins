@@ -30,6 +30,7 @@ def call(String COMPONENT) {
             sh """
             gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
             zip -r ${COMPONENT}-\${gitTag}.zip *.ini *.py requirements.txt
+            curl -v -u ${NEXUS} --upload-file ${COMPONENT}-\${gitTag}.zip http://172.31.15.198:8081/repository/${COMPONENT}/${COMPONENT}-\${gitTag}.zip
           """
           }
         }
