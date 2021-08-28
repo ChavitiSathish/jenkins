@@ -11,7 +11,8 @@ def call(String COMPONENT) {
       stage('Find Bugs') {
         steps {
           script {
-            bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
+            print "Ok"
+            //bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
           }
         }
       }
