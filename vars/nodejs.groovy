@@ -5,6 +5,7 @@ def call(String COMPONENT) {
     environment {
       SQ_TOKEN = credentials("SQ_TOKEN")
       SQ_LOGIN = credentials("SQ_LOGIN")
+      NEXUS    = credentials("NEXUS")
     }
 
     stages {
@@ -34,7 +35,8 @@ def call(String COMPONENT) {
         steps {
           sh """
             gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
-            zip -r ${COMPONENT}-\${gitTag}.zip node_modules server.js 
+            zip -r ${COMPONENT}-\${gitTag}.zip node_modules server.js
+            curl -v -u ${NEXUS} --upload-file ${COMPONENT}-\\${gitTag}.zip http://172.31.15.198:8081/repository/${COMPONENT}/${COMPONENT}-\\${gitTag}.zip 
           """
         }
       }
