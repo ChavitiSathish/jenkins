@@ -1,4 +1,4 @@
-def call(String Component) {
+def call(String COMPONENT) {
     pipeline {
      agent any
 

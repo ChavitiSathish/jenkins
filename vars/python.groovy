@@ -1,4 +1,4 @@
-def call(STRING COMPONENT) {
+def call(String COMPONENT) {
     pipeline {
         agent any
 
@@ -16,11 +16,6 @@ def call(STRING COMPONENT) {
                 }
             }
 
-            stage('Find Bugs') {
-                steps {
-                    echo "Find Bugs"
-                }
-            }
 
             stage('Test Cases') {
                 steps {
