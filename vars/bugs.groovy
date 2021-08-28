@@ -1,4 +1,4 @@
-def check_bugs(String COMPONENT) {
-    sh "sonar-scanner -Dsonar.projectKey=${COMPONENT} -Dsonar.sources=. -Dsonar.host.url=http://172.31.7.211:9000 -Dsonar.login=46fec8bc4f8d4830274640ba75d38ddd7f0cdf15"
-    sh "sonar-quality-gate.sh admin admin123 172.31.7.211 ${COMPONENT}"
+def check_bugs(String COMPONENT, String SQ_TOKEN) {
+    sh "sonar-scanner -Dsonar.projectKey=${COMPONENT} -Dsonar.sources=. -Dsonar.host.url=http://172.31.7.211:9000 -Dsonar.login=${SQ_TOKEN}"
+    sh "sonar-quality-gate.sh ${SQ_LOGIN_USR} ${SQ_LOGIN_PSW} 172.31.7.211 ${COMPONENT}"
 }
