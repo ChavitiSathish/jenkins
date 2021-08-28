@@ -12,7 +12,6 @@ def call(String COMPONENT) {
         steps {
           script {
             bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
-            //bugs.check_bugs(COMPONENT, SQ_TOKEN)
           }
         }
       }

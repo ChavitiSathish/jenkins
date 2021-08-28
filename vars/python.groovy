@@ -1,8 +1,21 @@
-def call() {
+def call(STRING COMPONENT) {
     pipeline {
         agent any
 
+        environment {
+            SQ_TOKEN = credentials("SQ_TOKEN")
+            SQ_LOGIN = credentials("SQ_LOGIN")
+        }
+
         stages {
+            stage('Find Bugs') {
+                steps {
+                    script {
+                        bugs.check_bugs(COMPONENT, SQ_TOKEN, SQ_LOGIN_USR, SQ_LOGIN_PSW)
+                    }
+                }
+            }
+
             stage('Find Bugs') {
                 steps {
                     echo "Find Bugs"
