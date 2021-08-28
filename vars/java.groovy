@@ -31,7 +31,11 @@ def call(String COMPONENT) {
         stage('Publish Artifacts') {
           when { expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) } }
           steps {
-            echo "Publish Artifacts"
+            sh """
+            gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
+            cp target/*.jar ${COMPONENT}.jar
+            zip -r ${COMPONENT}-\${gitTag}.zip ${COMPONENT}.jar
+          """
           }
         }
       }

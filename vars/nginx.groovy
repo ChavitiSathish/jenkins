@@ -27,9 +27,9 @@ def call(String COMPONENT) {
            when { expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) } }
            steps {
              sh """
-            gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
-            cd static
-            zip -r ../${COMPONENT}-\${gitTag}.zip node_modules server.js
+             gitTag=`echo ${GIT_BRANCH} | awk -F / '{print \\$NF}'`
+             cd static
+             zip -r ../${COMPONENT}-\\${gitTag}.zip *
           """
            }
          }
