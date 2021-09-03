@@ -57,13 +57,13 @@ for (i in 0..count) {
 }
 
 
-pipelineJob('Create Infra') {
+pipelineJob('Create VPC') {
   configure { flowdefinition ->
     flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
       'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
         'userRemoteConfigs' {
           'hudson.plugins.git.UserRemoteConfig' {
-            'url'('https://github.com/ChavitiSathish/terraform-mutable.git')
+            'url'('https://github.com/ChavitiSathish/tf-mutable.git')
           }
         }
         'branches' {
@@ -72,7 +72,7 @@ pipelineJob('Create Infra') {
           }
         }
       }
-      'scriptPath'('Jenkinsfile')
+      'scriptPath'('vpc/Jenkinsfile')
       'lightweight'(true)
     }
   }
