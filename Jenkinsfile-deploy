@@ -1,0 +1,36 @@
+pipeline {
+  agent any
+
+  parameters {
+    string(name: 'COMPONENT', defaultValue: '', description: 'Enter Component')
+    string(name: 'APP_VERSION', defaultValue: '', description: 'Enter App Version')
+    string(name: 'ENV', defaultValue: 'dev', description: 'Enter which environment')
+  }
+
+  stages {
+
+    stage('Deployment') {
+      steps{
+        script {
+          addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${COMPONENT}"
+          addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${APP_VERSION}"
+          addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
+        }
+        sh '''
+          git clone https://chavitisathish@dev.azure.com/chavitisathish/devops-project/_git/${COMPONENT}
+          cd ${COMPONENT}/terraform-mutable
+          export TF_VAR_APP_VERSION=${APP_VERSION}
+          make ${ENV}-apply
+        '''
+      }
+    }
+
+  }
+
+  post {
+    always {
+      cleanWs()
+    }
+  }
+
+}
